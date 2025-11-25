@@ -1,0 +1,209 @@
+
+      body {
+        margin: 0;
+        font-family: "Segoe UI", arial, sans-serif;
+        background-color: #f5f7fa;
+      }
+
+      
+       .navbar {
+    display: flex;
+    align-items: center; 
+    background-color: #2a314e; 
+    padding: 10px 40px;
+    font-family: serif;
+    
+  
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+
+.nav-logo {
+    
+    flex: 1; 
+}
+.nav-logo a {
+    display: flex;
+    align-items: center;
+    text-decoration: none;
+    color: #FFFFFF;
+    font-weight: bold;
+    font-size: 1.3rem;
+}
+.nav-logo img {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    margin-right: 12px;
+}
+
+
+.nav-links {
+    
+    flex: 2; 
+    display: flex;
+    justify-content: center; 
+    gap: 20px; 
+}
+.nav-links a {
+    color: #E2E8F0;
+    text-decoration: none;
+    padding: 8px 12px;
+    border-radius: 6px;
+    transition: all 0.2s ease-in-out;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    font-weight: 500;
+}
+.nav-links a:hover {
+    background-color: #3b4364;
+    color: #FFFFFF;
+}
+
+
+.nav-links a.active {
+    background-color: #1E293B;
+    color: #FFFFFF;
+    font-weight: 700;
+}
+
+.nav-profile {
+  
+    flex: 1; 
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    gap: 15px;
+}
+.nav-profile span {
+    color: #94A3B8;
+    font-weight: 500;
+    font-size: 0.9rem;
+}
+.nav-profile .btn-logout {
+    color: #94A3B8;
+    font-size: 1.2rem;
+    padding: 6px;
+}
+.nav-profile .btn-logout:hover {
+    color: #EF4444; 
+    background-color: #3b4364;
+}
+
+     footer {
+            text-align: center;
+            padding: 20px;
+            color: #94A3B8;
+            font-size: 0.9rem;
+            border-top: 1px solid #334155;
+            margin-top: 20px;
+        }
+        
+      .intro {
+        margin-bottom: 40px;
+      }
+
+      .opciones {
+        display: flex;
+        justify-content: center;
+        gap: 30px;
+      }
+
+      .contenedor-resumen{
+          display: flex;
+            justify-content:center;
+            gap: 30px;
+            padding: 10px;
+      }
+
+      .card-moderna {
+        padding: 20px;
+        border-radius: 12px;
+        width: 300px;
+        border: 1px solid #ddd;
+        transition: all 0.2s ease-in-out;
+        background-color: 		#e7e9fb;
+        }
+
+        .card-moderna:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 8px 16px rgba(0, 0, 0, 0.08); 
+        }
+
+        .TextoPRINCIPAL{
+          text-align: center;
+        }
+
+        .feature-card {
+    background-color: #ffffff;
+    border: none;
+    border-radius: 16px; 
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.07); 
+    padding: 25px;
+    height: 100%;
+    
+   
+    position: relative;
+    overflow: hidden; 
+    
+    transition: all 0.3s ease;
+}
+
+
+.feature-card:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 12px 30px rgba(42, 49, 78, 0.12);
+}
+
+
+
+.feature-card h5 {
+    font-size: 1.4rem;
+    font-weight: 600;
+    color: #2a314e; 
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    
+    
+    position: relative;
+    z-index: 2; 
+}
+
+.feature-card p {
+    color: #666;
+    font-size: 0.95rem;
+    position: relative;
+    z-index: 2; 
+}
+
+
+.card-bg-icon {
+    position: absolute; 
+    
+    
+    bottom: -30px; 
+    right: -20px;
+    
+    font-size: 10rem; 
+    
+   
+    color: rgba(42, 49, 78, 0.08); 
+    
+    z-index: 1;
+    transform: rotate(-15deg); 
+}
+
+.feature-card-link {
+    text-decoration: none; 
+    color: inherit; 
+}
+
+.feature-card-link:hover {
+    text-decoration: none; 
+}
+
+
+      
+      

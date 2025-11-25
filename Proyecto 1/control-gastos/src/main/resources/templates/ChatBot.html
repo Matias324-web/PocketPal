@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
+     <link rel="stylesheet" th:href="@{/css/StyleChatBot.css}">
+    <title>Chat Bot 1 | PocketPal</title>
+</head>
+<body>
+
+    <header> 
+        <nav class="navbar">
+            <div class="nav-logo">
+                <a th:href="@{/index}">
+                    <img th:src="@{/PocketPal.png}" alt="Logo" />
+                    <span>PocketPal</span>
+                </a>
+            </div>
+            <div class="nav-links">
+                <a th:href="@{/index}"><i class="bi bi-house-door"></i><span>Inicio</span></a>
+                <a th:href="@{/ingresos}"><i class="bi bi-arrow-up-right"></i><span>Ingresos</span></a>
+                <a th:href="@{/egresos}"><i class="bi bi-arrow-down-right"></i><span>Gastos</span></a>
+                <a th:href="@{/estadisticas}"><i class="bi bi-speedometer2"></i><span>Estadisticas</span></a>
+                <a th:href="@{/perfil}"><i class="bi bi-person-circle"></i><span>Mi Perfil</span></a>
+               
+                <a th:href="@{/chatbot}" class="active"><i class="bi bi-robot"></i><span>PocketBot</span></a>
+            </div>
+            <div class="nav-profile">
+            
+                <span th:text="'Hola, ' + ${session.usuarioNombre}"></span>
+                <a class="btn-logout" title="Cerrar Sesión" th:href="@{/login}">
+                    <i class="bi bi-box-arrow-right"></i>
+                </a>
+            </div>
+        </nav>
+    </header>
+
+  
+    <div class="chat-container">
+        
+        
+        <div class="chat-messages" id="chat-messages">
+            
+            <div class="message bot">
+                ¡Hola! Soy PocketBot. Estoy listo para analizar tus finanzas. 
+                Pregúntame cosas como: 
+                <ul>
+                    <li>"¿Cuál es mi balance total?"</li>
+                    <li>"¿En qué categoría gasté más dinero este año?"</li>
+                    <li>"Dame un resumen de mis finanzas."</li>
+                </ul>
+            </div>
+        </div>
+
+       
+        <form class="chat-input-form" id="chat-form">
+            <input type="text" id="chat-input" placeholder="Escribe tu pregunta..." required autocomplete="off">
+            <button type="submit" id="send-button">
+                <i class="bi bi-send-fill"></i>
+            </button>
+        </form>
+    </div>
+
+  
+    <footer>
+        <p> 💼 © 2025 PocketPal — Tu compañero inteligente en finanzas personales.</p>
+    </footer>
+
+    <script th:inline="javascript">
+    document.addEventListener("DOMContentLoaded", function() {
+        
+        const chatForm = document.getElementById('chat-form');
+        const chatInput = document.getElementById('chat-input');
+        const sendButton = document.getElementById('send-button');
+        const chatMessages = document.getElementById('chat-messages');
+
+        chatForm.addEventListener('submit', function(e) {
+            e.preventDefault(); // Evita que la página se recargue
+            
+            const userMessage = chatInput.value.trim();
+            if (userMessage === "") {
+                return;
+            }
+
+            // 1. Mostrar el mensaje del usuario
+            addMessage(userMessage, 'user');
+            chatInput.value = ""; // Limpiar el input
+            sendButton.disabled = true; // Deshabilitar el botón
+
+            // 2. Mostrar la burbuja de "cargando"
+            const loadingMessage = addMessage("PocketBot está pensando...", 'loading');
+
+            // 3. Enviar la pregunta al backend (@RestController)
+            fetch('/api/chatbot/query', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ prompt: userMessage })
+            })
+            .then(response => response.json())
+            .then(data => {
+                // 4. Reemplazar la burbuja de "cargando" por la respuesta del bot
+                chatMessages.removeChild(loadingMessage); // Quita el "pensando..."
+                addMessage(data.response, 'bot'); // Agrega la respuesta real
+            })
+            .catch(error => {
+                console.error('Error al llamar al API:', error);
+                chatMessages.removeChild(loadingMessage);
+                addMessage('Lo siento, no pude conectarme con mi cerebro. Intenta de nuevo.', 'bot');
+            })
+            .finally(() => {
+                sendButton.disabled = false; // Rehabilitar el botón
+            });
+        });
+
+        // Función helper para agregar burbujas de chat
+        function addMessage(text, type) {
+            const messageDiv = document.createElement('div');
+            messageDiv.classList.add('message', type);
+
+            if (type === 'loading') {
+                messageDiv.innerHTML = '<span class="loading-dots"><span>.</span><span>.</span><span>.</span></span>';
+            } else {
+                messageDiv.textContent = text;
+            }
+            
+            chatMessages.appendChild(messageDiv);
+            
+            // Auto-scroll al fondo
+            chatMessages.scrollTop = chatMessages.scrollHeight;
+            return messageDiv; // Devuelve el elemento por si necesitamos borrarlo
+        }
+    });
+
+    /*]]>*/
+    </script>
+    
+</body>
+</html>

@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login - PocketPal</title>
+
+    
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
+    <link rel="stylesheet" th:href="@{/css/StyleLogin.css}">
+
+</head>
+<body>
+
+
+    <div th:if="${RegistroExitoso}" class="toast-notificacion toast-exito">
+        <img th:src="@{/PocketPalRegistrado.png}" alt="PocketPal" />
+        <p th:text="${RegistroExitoso}">¡Mensaje de éxito!</p>
+    </div>
+
+     <div th:if="${RegistroError}" class="toast-notificacion toast-error">
+        <img th:src="@{/PocketPalError.png}" alt="PocketPal" />
+        <p th:text="${RegistroError}">¡Mensaje de éxito!</p>
+    </div>
+
+     <div th:if="${error}" class="toast-notificacion toast-error">
+        <img th:src="@{/PocketPalError.png}" alt="PocketPal" />
+        <p th:text="${error}">¡Mensaje de éxito!</p>
+    </div>
+
+    
+  
+    <div class="login-container">
+
+     
+        <div class="login-card">
+
+            <img th:src="@{/PocketPal.png}" alt="Logo de PocketPal" class="login-logo">
+            
+            <h2>Bienvenido</h2>
+            <p>Inicia sesión en tu cuenta</p>
+
+       
+            <form action="login" method="POST">
+                
+                <div class="campo">
+                    <label for="username">Usuario (o Email)</label>
+                  
+                    <input type="text" id="username" name="username" required>
+                </div>
+
+                <div class="campo">
+                    <label for="password">Contraseña</label>
+                   
+                    <input type="password" id="password" name="password" required>
+                </div>
+
+                <button type="submit" class="btn-primary">Iniciar Sesión</button>
+
+            </form>
+
+            <div class="login-helper">
+                ¿No tienes una cuenta? <a th:href="@{/Registro}">Regístrate</a>
+            </div>
+
+        </div> 
+
+    </div> 
+
+
+     <script th:inline="javascript">
+        document.addEventListener("DOMContentLoaded", function() {
+            
+           
+            const toast = document.querySelector('.toast-notificacion');
+    
+           
+            if (toast) {
+                setTimeout(() => {
+                    toast.classList.add('show');
+                }, 100); 
+    
+                setTimeout(() => {
+                    toast.classList.remove('show');
+                }, 4000); 
+            }
+        });
+</script>
+
+</body>
+</html>
