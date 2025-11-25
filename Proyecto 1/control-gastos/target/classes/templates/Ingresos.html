@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
+     <link rel="stylesheet" th:href="@{/css/StyleIngresos.css}">
+    <title>Ingresos | PocketPal</title>
+
+</head>
+
+<body>
+
+    <div th:if="${exitoEliminar}" class="toast-notificacion toast-exito">
+        <img th:src="@{/PocketPalEliminado.png}" alt="PocketPal" />
+        <p th:text="${exitoEliminar}">¡Mensaje de éxito!</p>
+    </div>
+
+    <div th:if="${errorEliminar}" class="toast-notificacion toast-error">
+        <img th:src="@{/PocketPal.png}" alt="PocketPal" />
+        <p th:text="${errorEliminar}">¡Hubo un error!</p>
+    </div>
+
+    <div th:if="${exitoIngreso}" class="toast-notificacion toast-exito">
+        <img th:src="@{/PocketPalIngresado.png}" alt="PocketPal" />
+        <p th:text="${exitoIngreso}">¡Mensaje de éxito!</p>
+    </div>
+
+    
+
+
+
+
+     <header> 
+        <nav class="navbar">
+
+    <div class="nav-logo">
+        <a th:href="@{/index}">
+            <img th:src="@{/PocketPal.png}" alt="Logo" />
+            <span>PocketPal</span>
+        </a>
+    </div>
+
+    <div class="nav-links">
+    <a th:href="@{/index}"><i class="bi bi-house-door"></i><span>Inicio</span></a>
+    <a th:href="@{/ingresos}"><i class="bi bi-arrow-up-right"></i><span>Ingresos</span></a>
+    <a th:href="@{/egresos}"><i class="bi bi-arrow-down-right"></i><span>Gastos</span></a>
+    <a th:href="@{/estadisticas}"><i class="bi bi-speedometer2"></i><span>Estadisticas</span></a>
+    
+    <a th:href="@{/perfil}"><i class="bi bi-person-circle"></i><span>Mi Perfil</span></a>
+    </div>
+
+
+    <div class="nav-profile">
+
+        <a> <span th:text="${session.usuariomoneda}"></span></a>
+
+        <span th:text="'Hola, ' + ${session.usuarioNombre}"></span>
+        
+        <a class="btn-logout" title="Cerrar Sesión" th:href="@{/login}">
+            <i class="bi bi-box-arrow-right"></i>
+        </a>
+    </div>
+
+</nav>
+    </header>
+
+      
+
+    <div class="layout-container">
+
+    <form class="form-card" action="GuardarIngreso" method="POST" >
+        <h2>Nuevo Ingreso</h2> <div class="campo">
+            <label for="Fecha">Fecha:</label>
+            <input type="date" id="Fecha" name="Fecha" required>
+        </div>
+
+        <div class="campo">
+            <label for="Descripcion">Descripcion:</label>
+            <input type="text" id="Descripcion" name="Descripcion">
+        </div>
+
+        <div class="campo">
+            <label for="Categoria">Categoria:</label>
+            <select id="Categoria" name="Categoria" required>
+                <option value="">Seleccione una Categoria</option>
+                <option th:each="mapEntry : ${categorias}" th:value="${mapEntry.key}" th:text="${mapEntry.value}"></option>
+            </select>
+        </div>
+
+        <div class="campo">
+            <label for="Medio">Medio:</label>
+            <select name="Medio" id="Medio" required>
+                <option value="">Seleccione un Medio</option>
+                <option th:each="mapEntry : ${medios}" th:value="${mapEntry.key}" th:text="${mapEntry.value}"></option>
+            </select>
+        </div>
+
+        <div class="campo">
+            <label for="Monto">Monto:</label>
+            <input type="number" id="Monto" name="Monto" step="0.01" required> </div>
+
+        <button type="submit" class="btn-primary">Agregar ingreso</button>
+    </form>
+
+
+    <div class="table-card">
+
+        <form class="filtro-container" th:action="@{/ingresos}" method="get">
+            <input type="text" id="Filtro" name="FiltroD" placeholder="Buscar ingreso..." th:value="${param.filtro}">
+            
+            <select name="categoriaf" id="categoriaf">
+                <option value="">Categorias</option> 
+                <option th:each="mapEntry : ${categorias}" th:value="${mapEntry.key}" th:text="${mapEntry.value}"></option>
+            </select>
+
+            <select name="mediof" id="mediof">
+                <option value="">Medios</option> 
+                <option th:each="mapEntry : ${medios}" th:value="${mapEntry.key}" th:text="${mapEntry.value}"></option>
+            </select>
+
+            <button type="submit" class="btn-secondary">Filtrar</button>
+            <a th:href="@{/ingresos}" class="btn-link">Limpiar</a>
+        </form>
+
+        <table class="tabla-moderna"> <thead>
+                <tr>
+                    <th>Fecha</th>
+                    <th>Descripcion</th>
+                    <th>Categoria</th>
+                    <th>Medio</th>
+                    <th>Monto</th>
+                    <th>Acciones</th>
+                </tr>
+            </thead>
+           <tbody> 
+    <tr th:each="i : ${ingresos}">
+        <td th:text="${#dates.format(i.fecha,'dd-MM-yyyy')}">21/10/2025</td>
+        <td th:text="${i.descripcion}">Regalo de mamá</td>
+        <td th:text="${categorias[i.id_categoria]}">Regalo</td>
+        <td th:text="${medios[i.id_medio]}">Efectivo</td>
+        <td class="monto-ingreso" th:text="'+ $' + ${i.monto}">+ $1500</td>
+        
+      
+    
+        <td class="acciones">
+            <a th:href="@{/ingresos/eliminar/{id}(id=${i.id})}" 
+               class="btn-icon btn-eliminar" 
+               onclick="return confirm('¿Estás seguro de que querés eliminar este ingreso?');">
+                <i class="bi bi-trash-fill"></i>
+            </a>
+        </td>
+    </tr> 
+
+    <tr th:if="${ingresos.isEmpty()}">
+        
+        <td colspan="6" class="fila-vacia">No hay Ingresos Registrados</td>
+    </tr>
+</tbody>
+        </table>
+    </div> </div>
+
+     <footer>
+        <p> 💼 © 2025 PocketPal — Tu compañero inteligente en finanzas personales.</p>
+    </footer>
+
+
+     <script th:inline="javascript">
+        document.addEventListener("DOMContentLoaded", function() {
+            
+           
+            const toast = document.querySelector('.toast-notificacion');
+    
+          
+            if (toast) {
+                setTimeout(() => {
+                    toast.classList.add('show');
+                }, 100); 
+    
+                setTimeout(() => {
+                    toast.classList.remove('show');
+                }, 4000); 
+            }
+        });
+</script>
+    
+</body>
+
+
+</html>

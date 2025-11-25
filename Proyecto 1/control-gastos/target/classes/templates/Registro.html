@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Registro - PocketPal</title>
+    
+    
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
+    <link rel="stylesheet" th:href="@{/css/StyleRegistro.css}">
+
+</head>
+<body>
+
+    <div class="register-container">
+        
+        <div class="login-logo">
+            <img th:src="@{/PocketPal.png}" alt="Logo" />
+            <h1>PocketPal</h1>
+        </div>
+
+        <form class="form-card" action="GuardaRegistro" method="POST">
+            <h2>Crear tu cuenta</h2>
+            
+           
+            <div class="campo">
+                <label for="nombre">Nombre</label>
+                <input type="text" id="nombre" name="nombre" required>
+            </div>
+            
+          
+            <div class="campo">
+                <label for="apellido">Apellido</label>
+                <input type="text" id="apellido" name="apellido" required>
+            </div>
+
+         
+            <div class="campo">
+                <label for="mail">Email (será tu usuario)</label>
+                <input type="email" id="mail" name="mail" required>
+            </div>
+
+           
+            <div class="campo">
+                <label for="contraseña">Contraseña</label>
+                <input type="password" id="contraseña" name="contraseña" required>
+            </div>
+            
+          
+            <div class="campo">
+                <label for="moneda">Moneda Principal</label>
+                <select id="moneda" name="moneda" required>
+                    <option value="ARS">ARS (Pesos Argentinos)</option>
+                    <option value="USD">USD (Dólar Estadounidense)</option>
+                    <option value="EUR">EUR (Euros)</option>
+                </select>
+            </div>
+
+            <button type="submit" class="btn-primary">Registrarse</button>
+            
+            <div class="login-link">
+                <a th:href="@{/login}">¿Ya tenés cuenta? Inicia Sesión</a>
+            </div>
+            
+        </form>
+    </div>
+    
+</body>
+</html>

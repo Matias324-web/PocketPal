@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Estadísticas - PocketPal</title>
+    
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
+    <link rel="stylesheet" th:href="@{/css/StyleEstadisticas.css}">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+   
+   
+</head>
+<body>
+
+    <header> 
+        <nav class="navbar">
+
+    <div class="nav-logo">
+        <a th:href="@{/index}">
+            <img th:src="@{/PocketPal.png}" alt="Logo" />
+            <span>PocketPal</span>
+        </a>
+    </div>
+
+    <div class="nav-links">
+    <a th:href="@{/index}"><i class="bi bi-house-door"></i><span>Inicio</span></a>
+    <a th:href="@{/ingresos}"><i class="bi bi-arrow-up-right"></i><span>Ingresos</span></a>
+    <a th:href="@{/egresos}"><i class="bi bi-arrow-down-right"></i><span>Gastos</span></a>
+    <a th:href="@{/estadisticas}"><i class="bi bi-speedometer2"></i><span>Estadisticas</span></a>
+    
+    <a th:href="@{/perfil}"><i class="bi bi-person-circle"></i><span>Mi Perfil</span></a>
+    </div>
+
+    <div class="nav-profile">
+
+        <a> <span th:text="${session.usuariomoneda}"></span></a>
+        
+       <span th:text="'Hola, ' + ${session.usuarioNombre}"></span>
+        
+        <a class="btn-logout" title="Cerrar Sesión" th:href="@{/login}">
+            <i class="bi bi-box-arrow-right"></i>
+        </a>
+    </div>
+
+</nav>
+    </header>
+
+      <form class="filtro-container-estadisticas" th:action="@{/estadisticas}" method="GET">
+        <select name="FiltroMes">
+            <option value="">Seleccionar Mes</option>
+            <option value="1">Enero 2025</option>
+            <option value="2">Febrero 2025</option>
+            <option value="3">Marzo 2025</option>
+            <option value="4">Abril 2025</option>
+            <option value="5">Mayo 2025</option>
+            <option value="6">Junio 2025</option>
+            <option value="7">Julio 2025</option>
+            <option value="8">Agosto 2025</option>
+            <option value="9">Septiembre 2025</option>
+            <option value="10">Octubre 2025</option>
+            <option value="11">Noviembre 2025</option>
+            <option value="12">Diciembre 2025</option>
+
+        </select>
+        
+        
+        <button type="submit" class="btn-secondary">Filtrar</button>
+        
+       
+        <a th:href="@{/estadisticas}" class="btn-link">Ver Estadisticas Historico</a>
+    </form>
+
+        
+
+    
+    <section class="estadisticas1">
+        <div class="card-moderna" id="i">
+            <div class="card-icono"><i class="bi bi-arrow-up"></i></div>
+            <div class="card-contenido">
+                <h3>Ingresos Totales</h3> 
+                <h2><span th:text="${#numbers.formatCurrency(ingresostotales)}"></span></h2> 
+            </div>
+        </div>
+        <div class="card-moderna" id="e">
+            <div class="card-icono"><i class="bi bi-arrow-down"></i></div>
+            <div class="card-contenido">
+                <h3>Egresos Totales</h3>
+                <h2><span th:text="${#numbers.formatCurrency(egresostotales)}"></span></h2>
+            </div>
+        </div>
+        <div class="card-moderna" id="b">
+            <div class="card-icono"><i class="bi bi-wallet"></i></div>
+            <div class="card-contenido">
+                <h3>Balance</h3>
+                <h2><span th:text="${#numbers.formatCurrency(balance)}"></span></h2>
+            </div>
+        </div>
+        <div class="card-moderna" id="fp">
+            <div class="card-icono"><i class="bi bi-coin"></i></div>
+            <div class="card-contenido">
+                <h3>Mayor Ingreso</h3>
+                <h2><span th:text="${#numbers.formatCurrency(mayoringreso)}"></span></h2>
+            </div>
+        </div>
+        <div class="card-moderna" id="mg">
+            <div class="card-icono"><i class="bi bi-coin"></i></div>
+            <div class="card-contenido">
+                <h3>Mayor Gasto</h3>
+                <h2><span th:text="${#numbers.formatCurrency(mayorgasto)}"></span></h2>
+            </div>
+        </div>
+    </section>
+
+ 
+    <section class="estadisticas2">
+        
+        
+        <div class="card-moderna chart-container">
+            <h3>Ingresos por Categoría</h3>
+            <canvas id="graficoIngresos"></canvas>
+        </div>
+
+        
+        <div class="card-moderna chart-container">
+            <h3>Gastos por Categoría</h3>
+            <canvas id="graficoEgresos"></canvas> 
+        </div>
+
+      
+        <div class="card-moderna chart-container chart-container-linea">
+            <h3>Evolucion Finanzas</h3>
+            <canvas id="graficoLineaEvolucion"></canvas> 
+        </div>
+
+    </section>
+
+    <footer>
+        <p> 💼 © 2025 PocketPal — Tu compañero inteligente en finanzas personales.</p>
+    </footer>
+
+    
+  
+    <script th:inline="javascript">
+
+
+        
+        const etiquetasjs = [[${etiquetagrafico}]];
+        const datosjs = [[${datosgrafico}]];
+        const data = {
+            labels: etiquetasjs,
+            datasets: [{
+                label: "Ingresos Por Categoria",
+                data: datosjs
+            }]
+        };
+        const config = {
+            type: "pie",
+            data: data,
+        };
+        new Chart(
+            document.getElementById("graficoIngresos"),
+            config
+        );
+
+       
+        const etiqueta = [[${etiquetasgraficoe}]];
+        const datos = [[${datosgraficoe}]];
+        const data1 = {
+            labels: etiqueta,
+            datasets: [{
+                label: "Gastos Por Categoria",
+                data: datos
+            }]
+        };
+        const config1 = {
+            type: "pie",
+            data: data1
+        };
+        new Chart(
+            document.getElementById("graficoEgresos"), 
+            config1
+        );
+
+        
+        const etiquetal = [[${labelslineas}]];
+        const datosingreso = [[${datosingresolinea}]];
+        const datosegreso = [[${datosegresolinea}]];
+
+        const datalinea = {
+            labels: etiquetal,
+            datasets: [
+                {
+                    label: "Ingresos",
+                    data: datosingreso,
+                    borderColor: '#10B981', 
+                    backgroundColor: 'rgba(16, 185, 129, 0.2)',
+                    fill: true,
+                    tension: 0.1,
+                    borderWidth: 1.5,
+                    radius: 0
+                },
+                {
+                    label: "Egresos",
+                    data: datosegreso,
+                    borderColor: '#EF4444', 
+                    backgroundColor: 'rgba(239, 68, 68, 0.2)',
+                    fill: true,
+                    tension: 0.1,
+                    borderWidth: 1.5,
+                    radius: 0
+                }
+            ]
+        };
+
+        const configlinea = {
+            type: "line",
+            data: datalinea,
+            options: { 
+                responsive: true,
+                plugins: {
+                    title: { display: false },
+                    legend: {
+                        labels: { color: '#94A3B8' } 
+                    }
+                },
+                scales: {
+                    y: {
+                        beginAtZero: true,
+                        ticks: { color: '#94A3B8' }, 
+                        grid: { color: 'rgba(51, 65, 85, 0.5)' } 
+                    },
+                    x: {
+                        ticks: { color: '#94A3B8' }, 
+                        grid: { color: 'rgba(51, 65, 85, 0.5)' } 
+                    }
+                }
+            }
+        };
+
+        new Chart(
+            document.getElementById("graficoLineaEvolucion"), 
+            configlinea
+        );
+
+
+    </script>
+    
+</body>
+</html>

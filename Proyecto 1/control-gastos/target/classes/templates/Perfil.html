@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mi Perfil - PocketPal</title>
+    
+    
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
+    <link rel="stylesheet" th:href="@{/css/StylePerfil.css}">
+    
+    
+</head>
+<body>
+
+    <div th:if="${exito}" class="toast-notificacion toast-exito">
+        <img th:src="@{/PocketPalActualizado.png}" alt="PocketPal" />
+        <p th:text="${exito}">¡Mensaje de éxito!</p>
+    </div>
+
+     <div th:if="${error}" class="toast-notificacion toast-error">
+        <img th:src="@{/PocketPalError.png}" alt="PocketPal" />
+        <p th:text="${error}">¡Mensaje de éxito!</p>
+    </div>
+
+  
+    <header> 
+        <nav class="navbar">
+            <div class="nav-logo">
+                <a th:href="@{/index}">
+                    <img th:src="@{/PocketPal.png}" alt="Logo" />
+                    <span>PocketPal</span>
+                </a>
+            </div>
+            <div class="nav-links">
+             <a th:href="@{/index}"><i class="bi bi-house-door"></i><span>Inicio</span></a>
+             <a th:href="@{/ingresos}"><i class="bi bi-arrow-up-right"></i><span>Ingresos</span></a>
+             <a th:href="@{/egresos}"><i class="bi bi-arrow-down-right"></i><span>Gastos</span></a>
+             <a th:href="@{/estadisticas}"><i class="bi bi-speedometer2"></i><span>Estadisticas</span></a>
+    
+             <a th:href="@{/perfil}"><i class="bi bi-person-circle"></i><span>Mi Perfil</span></a>
+             </div>
+
+            <div class="nav-profile">
+                <a> <span th:text="${session.usuariomoneda}"></span></a>
+                <span th:text="'Hola, ' + ${session.usuarioNombre}"></span>
+                <a class="btn-logout" title="Cerrar Sesión" th:href="@{/login}">
+                    <i class="bi bi-box-arrow-right"></i>
+                </a>
+            </div>
+        </nav>
+    </header>
+
+    <div class="profile-container">
+    
+        
+        <form class="form-card" th:action="@{/perfil/actualizar}" th:object="${usuario}" method="POST">
+            <h2>Datos Personales</h2>
+            
+           
+            <input type="hidden" th:field="*{idusuario}" />
+            
+          
+            <div class="campo">
+                <label for="nombre">Nombre</label>
+                <input type="text" th:field="*{nombre}" id="nombre" required>
+            </div>
+            
+          
+            <div class="campo">
+                <label for="apellido">Apellido</label>
+                <input type="text" th:field="*{apellido}" id="apellido" required>
+            </div>
+
+            
+            <div class="campo">
+                <label for="mail">Email (Usuario)</label>
+                <input type="email" th:field="*{mail}" id="mail" disabled>
+            </div>
+            
+            <div class="campo">
+                <label for="moneda">Moneda Principal</label>
+                <select th:field="*{moneda}" id="moneda">
+                    <option value="ARS">ARS (Pesos Argentinos)</option>
+                    <option value="USD">USD (Dólar Estadounidense)</option>
+                    <option value="EUR">EUR (Euros)</option>
+                </select>
+            </div>
+
+            <button type="submit" class="btn-primary">Guardar Cambios</button>
+        </form>
+        
+        
+     
+        <form class="form-card" th:action="@{/perfil/cambiar-password}" method="POST">
+            <h2>Cambiar Contraseña</h2>
+            
+            <div class="campo">
+                <label for="passwordActual">Contraseña Actual</label>
+                <input type="password" id="passwordActual" name="passwordActual" required>
+            </div>
+            
+            <div class="campo">
+                <label for="nuevaPassword">Nueva Contraseña</label>
+                <input type="password" id="nuevaPassword" name="nuevaPassword" required>
+            </div>
+
+            <div class="campo">
+                <label for="confirmarPassword">Confirmar Nueva Contraseña</label>
+                <input type="password" id="confirmarPassword" name="confirmarPassword" required>
+            </div>
+            
+            <button type="submit" class="btn-primary">Actualizar Contraseña</button>
+        </form>
+    
+    </div> 
+
+  
+    <footer>
+        <p> 💼 © 2025 PocketPal — Tu compañero inteligente en finanzas personales.</p>
+    </footer>
+
+
+    <script th:inline="javascript">
+        document.addEventListener("DOMContentLoaded", function() {
+            
+            
+            const toast = document.querySelector('.toast-notificacion');
+    
+            if (toast) {
+                setTimeout(() => {
+                    toast.classList.add('show');
+                }, 100); 
+    
+                setTimeout(() => {
+                    toast.classList.remove('show');
+                }, 4000);
+            }
+        });
+</script>
+
+</body>
+</html>

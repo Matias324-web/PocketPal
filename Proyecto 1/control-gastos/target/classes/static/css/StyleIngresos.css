@@ -1,0 +1,351 @@
+
+
+
+ body{
+    margin: 0;
+    font-family: "Segoe UI",arial,sans-serif;
+    background-color: #0F172A;
+    }
+
+ .navbar {
+    display: flex;
+    align-items: center; 
+    background-color: #2a314e;
+    padding: 10px 40px; 
+    font-family: serif;
+    
+    
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+
+.nav-logo {
+   
+    flex: 1; 
+}
+.nav-logo a {
+    display: flex;
+    align-items: center;
+    text-decoration: none;
+    color: #FFFFFF;
+    font-weight: bold;
+    font-size: 1.3rem;
+}
+.nav-logo img {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    margin-right: 12px;
+}
+
+
+.nav-links {
+    
+    flex: 2; 
+    display: flex;
+    justify-content: center;
+    gap: 20px; 
+}
+.nav-links a {
+    color: #E2E8F0;
+    text-decoration: none;
+    padding: 8px 12px;
+    border-radius: 6px;
+    transition: all 0.2s ease-in-out;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    font-weight: 500;
+}
+.nav-links a:hover {
+    background-color: #3b4364;
+    color: #FFFFFF;
+}
+
+
+.nav-links a.active {
+    background-color: #1E293B; 
+    color: #FFFFFF;
+    font-weight: 700;
+}
+
+
+.nav-profile {
+    
+    flex: 1; 
+    display: flex;
+    justify-content: flex-end; 
+    align-items: center;
+    gap: 15px;
+}
+.nav-profile span {
+    color: #94A3B8; 
+    font-weight: 500;
+    font-size: 0.9rem;
+}
+.nav-profile .btn-logout {
+    color: #94A3B8;
+    font-size: 1.2rem;
+    padding: 6px;
+}
+.nav-profile .btn-logout:hover {
+    color: #EF4444;
+    background-color: #3b4364;
+}
+
+
+
+
+
+.layout-container {
+    display: flex;
+    gap: 20px;
+    padding: 20px;
+    align-items: flex-start; 
+}
+
+
+.form-card {
+    flex: 1;
+    background-color: #1E293B;
+    padding: 25px;
+    border-radius: 8px;
+    border: 1px solid #334155;
+}
+
+
+.table-card {
+    flex: 2; 
+    background-color: #1E293B;
+    padding: 25px;
+    border-radius: 8px;
+    border: 1px solid #334155;
+}
+
+.form-card h2 {
+    color: #E2E8F0;
+    margin-top: 0;
+    margin-bottom: 20px;
+}
+
+
+
+.campo {
+    margin-bottom: 15px;
+}
+.campo label {
+    display: block;
+    color: #94A3B8; 
+    font-size: 0.9rem;
+    margin-bottom: 5px;
+}
+
+
+input[type="text"],
+input[type="date"],
+input[type="number"],
+select {
+    width: 100%;
+    padding: 10px;
+    background-color: #0F172A; 
+    border: 1px solid #334155;
+    border-radius: 5px;
+    color: #E2E8F0; 
+    font-size: 1rem;
+}
+select {
+    appearance: none; 
+}
+
+
+.btn-primary {
+    background-color: #10B981; 
+    color: #FFF;
+    font-weight: bold;
+    border: none;
+    padding: 12px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+    width: 100%;
+    font-size: 1rem;
+    transition: background-color 0.2s;
+}
+.btn-primary:hover {
+    background-color: #0d9466;
+}
+
+
+
+.filtro-container {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+    margin-bottom: 20px;
+}
+.filtro-container input,
+.filtro-container select {
+    width: auto;
+    flex-grow: 1; 
+}
+
+
+.btn-secondary {
+    background-color: #334155;
+    color: #E2E8F0;
+    border: none;
+    padding: 10px 15px;
+    border-radius: 5px;
+    cursor: pointer;
+}
+.btn-secondary:hover {
+    background-color: #475569;
+}
+
+.btn-link {
+    color: #94A3B8;
+    text-decoration: none;
+    font-size: 0.9rem;
+}
+.btn-link:hover {
+    color: #FFF;
+}
+
+
+
+.tabla-moderna {
+    width: 100%;
+    border-collapse: collapse; 
+}
+
+.tabla-moderna thead tr {
+   
+    border-bottom: 2px solid #334155; 
+}
+
+.tabla-moderna th {
+    color: #94A3B8;
+    padding: 12px 15px;
+    text-align: left;
+    font-size: 0.85rem;
+    text-transform: uppercase;
+}
+
+.tabla-moderna tbody tr {
+    border-bottom: 1px solid #334155;
+    transition: background-color 0.2s;
+}
+
+
+.tabla-moderna tbody tr:hover {
+    background-color: #334155;
+}
+
+.tabla-moderna td {
+    color: #E2E8F0;
+    padding: 12px 15px;
+}
+
+.tabla-moderna .monto-ingreso {
+    color: #10B981;
+    font-weight: 600;
+}
+
+.tabla-moderna .fila-vacia td {
+    text-align: center;
+    color: #94A3B8;
+    padding: 20px;
+}
+.tabla-moderna td.acciones {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+    justify-content: center; 
+}
+
+.btn-icon {
+    display: inline-block;
+    padding: 8px;
+    border-radius: 5px;
+    text-decoration: none;
+    color: white;
+    transition: transform 0.2s;
+}
+
+.btn-icon:hover {
+    transform: scale(1.1);
+}
+
+
+.btn-editar {
+    background-color: #f59e0b; 
+}
+
+
+.btn-eliminar {
+    background-color: #EF4444; 
+}
+
+.toast-notificacion {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            z-index: 1000;
+            background-color: #1E293B;
+            border: 1px solid #334155;
+            border-radius: 8px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            display: flex;
+            align-items: center;
+            padding: 15px 20px;
+            min-width: 300px;
+            max-width: 400px;
+            visibility: hidden;
+            opacity: 0;
+            transform: translateX(100%);
+            transition: all 0.5s ease-in-out;
+        }
+
+        
+        .toast-exito {
+            border-left: 5px solid #10B981;
+        }
+
+        .toast-error {
+            border-left: 5px solid #EF4444;
+        }
+
+        
+        .toast-notificacion.show {
+            visibility: visible;
+            opacity: 1;
+            transform: translateX(0);
+        }
+
+        
+        .toast-notificacion img {
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            margin-right: 45px;
+        }
+
+        .toast-notificacion p {
+            margin: 0;
+            color: #E2E8F0;
+            font-size: 0.9rem;
+            font-weight: 600;
+        }
+
+         footer {
+            text-align: center;
+            padding: 20px;
+            color: #94A3B8;
+            font-size: 0.9rem;
+            border-top: 1px solid #334155;
+            margin-top: 20px;
+        }
+
+        
+
+
+

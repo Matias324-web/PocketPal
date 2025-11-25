@@ -1,0 +1,21 @@
+{
+  "java.configuration.updateBuildConfiguration": "interactive",
+  "java.debug.settings.onBuildFailureProceed": true,
+  "sqltools.connections": [
+    {
+      "mysqlOptions": {
+        "authProtocol": "default",
+        "enableSsl": "Disabled"
+      },
+      "ssh": "Disabled",
+      "previewLimit": 50,
+      "server": "localhost",
+      "port": 3306,
+      "driver": "MySQL",
+      "name": "Base Matu",
+      "database": "finanzaspocketpal",
+      "username": "root"
+    }
+  ],
+  "java.compile.nullAnalysis.mode": "disabled"
+}
