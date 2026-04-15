@@ -1,5 +1,5 @@
 Pocket Pal 💰
-Pocket Pal es una aplicación web diseñada para simplificar el control de tus finanzas personales. Olvidate de las planillas de cálculo complejas; registrá tus ingresos y gastos de forma rápida, visualizá tus saldos y tomá mejores decisiones financieras.
+Pocket Pal es una aplicación web diseñada para simplificar el control de tus finanzas personales.Registrá tus ingresos y gastos de forma rápida, visualizá tus saldos y tomá mejores decisiones financieras.
 
 Características Principal
 Registro Ágil: Carga de ingresos y egresos en pocos clics.
